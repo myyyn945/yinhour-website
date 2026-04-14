@@ -27,14 +27,14 @@ const sections = [
     id: 'mission',
     title: '公司使命',
     subtitle: '以科技创新为引擎，打破物理与数字世界的边界',
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=2000',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=2000',
     primaryBtn: '愿景展望',
     secondaryBtn: '核心价值',
   },
   {
     id: 'products',
     title: '领先AI解决方案',
-    subtitle: '从底层硬件到云端算法的完整链路',
+    subtitle: '显微智能・体智运维・数智未来',
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2000',
     primaryBtn: '了解详情',
     secondaryBtn: '预约演示',
@@ -64,8 +64,8 @@ const sections = [
     isPartners: true,
     cases: [
       { name: '成都某大型光模块龙头企业', desc: '智能产线升级，效率提升 45%' },
-      { name: '广东某血液制品领军企业', desc: 'QC自动化AI检测项目，准确率提升75%，实现自动化、精准化、合规化检测' },
-      { name: '成都某知名律师事务所', desc: 'AI实现标准化、高频次、即时性前端工作，超级延伸专业律师能力' },
+      { name: '广东某血液制品领军企业', desc: 'AI自动化检测准确率提升75%，实现QC自动化/精准化/合规化' },
+      { name: '成都某知名律师事务所', desc: 'AI实现标准化/高频次/即时性工作，专业律师超级延伸版' },
       { name: '成都某石油科技公司', desc: 'AI深度助力化学剂研发，提升产品稳定适应性' },
       { name: '成都某著名专业药物非临床安全性评价机构', desc: '微观世界AI智视，服务新特药研发' },
     ]
@@ -101,9 +101,20 @@ const Navbar = () => {
         <a href="#home" className="flex items-center">
           <img 
             src="https://storage.googleapis.com/static-content-ais-pre/hksrj54jthgo562lnkq4dq/attachments/d2296068-195c-433a-939e-d3059885145b.png" 
-            alt="In Time" 
-            className="h-12 md:h-16 w-auto object-contain brightness-125"
+            alt="In Time Brand" 
+            className="h-10 object-contain"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              // Fallback to text if image fails
+              e.currentTarget.style.display = 'none';
+              const parent = e.currentTarget.parentElement;
+              if (parent && !parent.querySelector('.brand-fallback')) {
+                const fallback = document.createElement('span');
+                fallback.className = 'brand-fallback font-bold text-xl tracking-[0.2em] text-white uppercase';
+                fallback.innerText = '寅时・智能';
+                parent.appendChild(fallback);
+              }
+            }}
           />
         </a>
       </div>
@@ -122,7 +133,7 @@ const Navbar = () => {
 
       <div className="flex-1 flex justify-end gap-4">
         <button 
-          className="lg:hidden text-white p-2"
+          className="text-white p-2"
           onClick={() => setIsMobileMenuOpen(true)}
         >
           <Menu size={24} />
@@ -371,7 +382,7 @@ export default function App() {
         {/* Footer (Minimalist) */}
         <footer className="bg-white py-8 flex flex-col items-center gap-4 snap-start">
           <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-[#5c5e62]">
-            <p>© 2026 寅时・智能</p>
+            <p>© 2026 成都寅时智能</p>
             <a href="#" className="hover:text-black transition-colors">隐私政策</a>
             <a href="#" className="hover:text-black transition-colors">法律声明</a>
             <a href="#" className="hover:text-black transition-colors">加入我们</a>

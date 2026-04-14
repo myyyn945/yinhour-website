@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 寅时・智能 - 开启智能新纪元
 
-# Run and deploy your AI Studio app
+寅时・智能官方网站，展示公司使命、愿景、领先的产品解决方案以及最新的行业动态。
 
-This contains everything you need to run your app locally.
+## 核心板块
 
-View your app in AI Studio: https://ai.studio/apps/a13b7940-ff68-47a6-bf6c-1607268da31b
+- **公司使命**：以科技创新为引擎，打破物理与数字世界的边界。
+- **领先AI解决方案**：显微智能・体智运维・数智未来。
+- **行业动态**：获取最新的技术突破与行业前瞻。
+- **合作伙伴**：卓越案例，共创价值。
+- **奇思AI想**：您的想法我来构建，美好未来携手同行。
 
-## Run Locally
+## 技术栈
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion (motion/react)
+- Lucide React
