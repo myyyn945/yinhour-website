@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import CryptoJS from 'crypto-js';
 import { 
   ChevronDown,
   Menu,
@@ -14,6 +15,25 @@ import {
 import { cn } from './lib/utils';
 
 // --- Data ---
+
+const AMAP_KEY = '858b623d913a2aed3f753df42cc60c55';
+const AMAP_SECRET = 'a9355dfcf13a443b0a2681556317ebca';
+
+const getAmapStaticMapUrl = () => {
+  const params: Record<string, string> = {
+    key: AMAP_KEY,
+    location: '104.093144,30.686566',
+    zoom: '15',
+    size: '600*300',
+    markers: 'mid,,A:104.093144,30.686566'
+  };
+
+  const sortedKeys = Object.keys(params).sort();
+  const paramString = sortedKeys.map(key => `${key}=${params[key]}`).join('&');
+  const sig = CryptoJS.MD5(paramString + AMAP_SECRET).toString();
+  
+  return `https://restapi.amap.com/v3/staticmap?${paramString}&sig=${sig}`;
+};
 
 const sections = [
   {
@@ -54,8 +74,8 @@ const sections = [
     image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000',
     isNews: true,
     buttons: [
-      { label: '国内动态', href: 'https://www.mydrivers.com/', primary: true },
-      { label: '国际动态', href: 'https://www.reuters.com/', primary: false },
+      { label: '国内动态', href: 'https://www.aibase.com/zh', primary: true },
+      { label: '国际动态', href: 'https://www.bloomberg.com/ai', primary: false },
     ]
   },
   {
@@ -147,13 +167,13 @@ const Navbar = () => {
 
               <div className="aspect-video w-full rounded-xl overflow-hidden border border-gray-200 relative group">
                 <img 
-                  src="https://restapi.amap.com/v3/staticmap?location=104.093144,30.686566&zoom=15&size=600*300&markers=mid,,A:104.093144,30.686566&key=ee95e52420748f5859514421375ca93d" 
-                  alt="Location Map"
+                  src={getAmapStaticMapUrl()} 
+                  alt="Amap Location"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     // Fallback to a placeholder if Amap API fails
-                    e.currentTarget.src = "https://picsum.photos/seed/map/600/300?blur=2";
+                    e.currentTarget.src = "https://picsum.photos/seed/amap/600/300?blur=2";
                   }}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -192,9 +212,9 @@ const Navbar = () => {
       <div className="flex-1">
         <a href="#home" className="flex items-center">
           <img 
-            src="https://storage.googleapis.com/static-content-ais-pre/hksrj54jthgo562lnkq4dq/attachments/4836400a-4860-466d-9659-432a51000624.png" 
+            src="/logo.png" 
             alt="In Time Brand" 
-            className="h-10 object-contain"
+            className="h-10 md:h-14 w-auto object-contain"
             referrerPolicy="no-referrer"
             onError={(e) => {
               // Fallback to text if image fails
