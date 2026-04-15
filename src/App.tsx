@@ -8,7 +8,8 @@ import {
   Cpu,
   Zap,
   Shield,
-  ArrowRight
+  ArrowRight,
+  MapPin
 } from 'lucide-react';
 import { cn } from './lib/utils';
 
@@ -97,9 +98,97 @@ const navLinks = [
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  const ContactModal = () => (
+    <AnimatePresence>
+      {isContactModalOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsContactModalOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white rounded-2xl p-8 z-[110] shadow-2xl"
+          >
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-[#171a20] mb-2">联系我们</h3>
+                <p className="text-gray-500">期待与您的交流与合作</p>
+              </div>
+              <button 
+                onClick={() => setIsContactModalOpen(false)}
+                className="p-2 hover:bg-black/5 rounded-full transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                <div className="flex items-start gap-4">
+                  <div className="bg-black text-white p-2 rounded-lg">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#171a20] mb-1">公司地址</p>
+                    <p className="text-gray-600 leading-relaxed">
+                      成都市成华区三友路3号三友岛2-11
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="aspect-video w-full rounded-xl overflow-hidden border border-gray-200 relative group">
+                <img 
+                  src="https://restapi.amap.com/v3/staticmap?location=104.093144,30.686566&zoom=15&size=600*300&markers=mid,,A:104.093144,30.686566&key=ee95e52420748f5859514421375ca93d" 
+                  alt="Location Map"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    // Fallback to a placeholder if Amap API fails
+                    e.currentTarget.src = "https://picsum.photos/seed/map/600/300?blur=2";
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                  <a 
+                    href="https://uri.amap.com/marker?position=104.093144,30.686566&name=成都寅时智能科技有限公司" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="bg-white text-black px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2"
+                  >
+                    <MapPin size={16} />
+                    在高德地图中查看
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                  <p className="text-xs text-gray-400 uppercase font-bold mb-1">商务合作</p>
+                  <p className="text-sm font-bold">yangpeng@yinhour.com</p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                  <p className="text-xs text-gray-400 uppercase font-bold mb-1">加入我们</p>
+                  <p className="text-sm font-bold">hr@yinhour.com</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-black/10 backdrop-blur-md">
+      <ContactModal />
       <div className="flex-1">
         <a href="#home" className="flex items-center">
           <img 
@@ -135,7 +224,10 @@ const Navbar = () => {
       </div>
 
       <div className="flex-1 flex justify-end gap-4">
-        <button className="hidden md:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+        <button 
+          onClick={() => setIsContactModalOpen(true)}
+          className="hidden md:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+        >
           联系我们
         </button>
         <button 
@@ -181,6 +273,15 @@ const Navbar = () => {
                   </a>
                 ))}
                 <div className="h-px bg-black/10 my-4" />
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsContactModalOpen(true);
+                  }}
+                  className="text-left text-base font-bold text-[#171a20] px-4 py-3 rounded-md hover:bg-black/5 transition-colors"
+                >
+                  联系我们
+                </button>
                 <a href="#" className="text-base font-bold text-[#171a20] px-4 py-3 rounded-md hover:bg-black/5 transition-colors">关于寅时</a>
               </div>
             </motion.div>
