@@ -51,8 +51,11 @@ const sections = [
     title: '行业动态',
     subtitle: '获取最新的技术突破与行业前瞻',
     image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000',
-    primaryBtn: '阅读新闻',
-    secondaryBtn: '加入我们',
+    isNews: true,
+    buttons: [
+      { label: '国内动态', href: 'https://www.chinanews.com.cn/', primary: true },
+      { label: '国际动态', href: 'https://www.reuters.com/', primary: false },
+    ]
   },
   {
     id: 'partners',
@@ -96,7 +99,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-black/10 backdrop-blur-md">
       <div className="flex-1">
         <a href="#home" className="flex items-center">
           <img 
@@ -132,6 +135,9 @@ const Navbar = () => {
       </div>
 
       <div className="flex-1 flex justify-end gap-4">
+        <button className="hidden lg:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+          联系我们
+        </button>
         <button 
           className="text-white p-2"
           onClick={() => setIsMobileMenuOpen(true)}
@@ -190,11 +196,13 @@ interface SectionData {
   title: string;
   subtitle: string;
   image: string;
-  primaryBtn: string;
-  secondaryBtn: string;
+  primaryBtn?: string;
+  secondaryBtn?: string;
   isInteractive?: boolean;
   isPartners?: boolean;
   isProducts?: boolean;
+  isNews?: boolean;
+  buttons?: { label: string; href: string; primary: boolean }[];
   productList?: { name: string; icon: React.ReactNode }[];
   cases?: { name: string; desc: string }[];
   key?: React.Key;
@@ -338,6 +346,29 @@ const Section = ({ section }: { section: SectionData, key?: React.Key }) => {
               </button>
             </motion.div>
           </div>
+        ) : section.isNews ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-full max-w-xl flex flex-col sm:flex-row gap-4"
+          >
+            {section.buttons?.map((btn) => (
+              <button 
+                key={btn.label}
+                onClick={() => window.open(btn.href, '_blank')}
+                className={cn(
+                  "flex-1 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider transition-all backdrop-blur-md border",
+                  btn.primary 
+                    ? "bg-white/15 text-white border-white/20 hover:bg-white/25" 
+                    : "bg-[#171a20]/60 text-white border-transparent hover:bg-[#171a20]/80"
+                )}
+              >
+                {btn.label}
+              </button>
+            ))}
+          </motion.div>
         ) : (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -387,6 +418,7 @@ export default function App() {
             <a href="#" className="hover:text-black transition-colors">法律声明</a>
             <a href="#" className="hover:text-black transition-colors">加入我们</a>
             <a href="#" className="hover:text-black transition-colors">行业动态</a>
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">蜀ICP备2026017298号</a>
           </div>
         </footer>
       </main>
