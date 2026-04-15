@@ -53,7 +53,7 @@ const sections = [
     image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000',
     isNews: true,
     buttons: [
-      { label: '国内动态', href: 'https://www.chinanews.com.cn/', primary: true },
+      { label: '国内动态', href: 'https://www.mydrivers.com/', primary: true },
       { label: '国际动态', href: 'https://www.reuters.com/', primary: false },
     ]
   },
@@ -419,6 +419,15 @@ export default function App() {
             <a href="#" className="hover:text-black transition-colors">加入我们</a>
             <a href="#" className="hover:text-black transition-colors">行业动态</a>
             <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">蜀ICP备2026017298号</a>
+            <a href="https://beian.mps.gov.cn/#/query/webSearch?code=51019002009363" rel="noreferrer" target="_blank" className="hover:text-black transition-colors flex items-center gap-1">
+              <img 
+                src="https://www.beian.gov.cn/img/ghs.png" 
+                alt="公安徽标" 
+                className="w-4 h-4 object-contain"
+                referrerPolicy="no-referrer"
+              />
+              川公网安备51019002009363号
+            </a>
           </div>
         </footer>
       </main>
