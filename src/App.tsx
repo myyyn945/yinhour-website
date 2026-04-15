@@ -103,7 +103,7 @@ const Navbar = () => {
       <div className="flex-1">
         <a href="#home" className="flex items-center">
           <img 
-            src="https://storage.googleapis.com/static-content-ais-pre/hksrj54jthgo562lnkq4dq/attachments/d2296068-195c-433a-939e-d3059885145b.png" 
+            src="https://storage.googleapis.com/static-content-ais-pre/hksrj54jthgo562lnkq4dq/attachments/4836400a-4860-466d-9659-432a51000624.png" 
             alt="In Time Brand" 
             className="h-10 object-contain"
             referrerPolicy="no-referrer"
@@ -122,7 +122,7 @@ const Navbar = () => {
         </a>
       </div>
 
-      <div className="hidden lg:flex items-center gap-6">
+      <div className="hidden md:flex items-center gap-6">
         {navLinks.map((link) => (
           <a
             key={link.name}
@@ -135,7 +135,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex-1 flex justify-end gap-4">
-        <button className="hidden lg:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+        <button className="hidden md:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
           联系我们
         </button>
         <button 
