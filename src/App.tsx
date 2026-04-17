@@ -20,16 +20,22 @@ const AMAP_KEY = '858b623d913a2aed3f753df42cc60c55';
 const AMAP_SECRET = 'a9355dfcf13a443b0a2681556317ebca';
 
 const getAmapStaticMapUrl = () => {
+  // Ultra-precise coordinates for 三友路3号三友岛文创基地 (GCJ-02)
+  const lng = '104.10015';
+  const lat = '30.69365';
+  
+  // Minimal parameter set to ensure signature consistency and prevent failure
   const params: Record<string, string> = {
     key: AMAP_KEY,
-    location: '104.093144,30.686566',
-    zoom: '15',
-    size: '600*300',
-    markers: 'mid,,A:104.093144,30.686566'
+    location: `${lng},${lat}`,
+    markers: `mid,,A:${lng},${lat}`,
+    size: '600*350',
+    zoom: '16'
   };
 
   const sortedKeys = Object.keys(params).sort();
   const paramString = sortedKeys.map(key => `${key}=${params[key]}`).join('&');
+  // MD5(sorted_params + secret)
   const sig = CryptoJS.MD5(paramString + AMAP_SECRET).toString();
   
   return `https://restapi.amap.com/v3/staticmap?${paramString}&sig=${sig}`;
@@ -135,12 +141,12 @@ const Navbar = () => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white rounded-2xl p-8 z-[110] shadow-2xl"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-lg bg-white rounded-2xl p-6 md:p-8 z-[110] shadow-2xl max-h-[95vh] overflow-y-auto"
           >
-            <div className="flex justify-between items-start mb-6">
+            <div className="flex justify-between items-start mb-6 sticky top-0 bg-white z-10 -m-6 p-6 md:-m-8 md:p-8 rounded-t-2xl">
               <div>
                 <h3 className="text-2xl font-bold text-[#171a20] mb-2">联系我们</h3>
-                <p className="text-gray-500">期待与您的交流与合作</p>
+                <p className="text-gray-500 text-sm md:text-base">期待与您的交流与合作</p>
               </div>
               <button 
                 onClick={() => setIsContactModalOpen(false)}
@@ -158,8 +164,8 @@ const Navbar = () => {
                   </div>
                   <div>
                     <p className="font-bold text-[#171a20] mb-1">公司地址</p>
-                    <p className="text-gray-600 leading-relaxed">
-                      成都市成华区三友路3号三友岛2-11
+                    <p className="text-gray-600 leading-relaxed text-sm">
+                      成都市成华区三友路3号三友岛文创基地2-11
                     </p>
                   </div>
                 </div>
@@ -170,15 +176,14 @@ const Navbar = () => {
                   src={getAmapStaticMapUrl()} 
                   alt="Amap Location"
                   className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
                   onError={(e) => {
                     // Fallback to a placeholder if Amap API fails
-                    e.currentTarget.src = "https://picsum.photos/seed/amap/600/300?blur=2";
+                    e.currentTarget.src = "https://picsum.photos/seed/amap/600/350?blur=2";
                   }}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                   <a 
-                    href="https://uri.amap.com/marker?position=104.093144,30.686566&name=成都寅时智能科技有限公司" 
+                    href="https://uri.amap.com/marker?position=104.10015,30.69365&name=成都寅时智能科技有限公司" 
                     target="_blank" 
                     rel="noreferrer"
                     className="bg-white text-black px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2"
