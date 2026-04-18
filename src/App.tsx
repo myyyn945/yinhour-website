@@ -20,11 +20,10 @@ const AMAP_KEY = '858b623d913a2aed3f753df42cc60c55';
 const AMAP_SECRET = 'a9355dfcf13a443b0a2681556317ebca';
 
 const getAmapStaticMapUrl = () => {
-  // Ultra-precise coordinates for 三友路3号三友岛文创基地 (GCJ-02)
-  const lng = '104.10015';
-  const lat = '30.69365';
+  // Coordinates for 三友路3号三友岛文创基地 (GCJ-02)
+  const lng = '104.100021';
+  const lat = '30.693035';
   
-  // Minimal parameter set to ensure signature consistency and prevent failure
   const params: Record<string, string> = {
     key: AMAP_KEY,
     location: `${lng},${lat}`,
@@ -33,12 +32,17 @@ const getAmapStaticMapUrl = () => {
     zoom: '16'
   };
 
+  // 1. Sort keys and create raw string for signature (NO encoding here)
   const sortedKeys = Object.keys(params).sort();
-  const paramString = sortedKeys.map(key => `${key}=${params[key]}`).join('&');
-  // MD5(sorted_params + secret)
-  const sig = CryptoJS.MD5(paramString + AMAP_SECRET).toString();
+  const rawParamString = sortedKeys.map(key => `${key}=${params[key]}`).join('&');
   
-  return `https://restapi.amap.com/v3/staticmap?${paramString}&sig=${sig}`;
+  // 2. Calculate signature: MD5(raw_params + secret)
+  const sig = CryptoJS.MD5(rawParamString + AMAP_SECRET).toString();
+  
+  // 3. Create encoded string for the final URL
+  const encodedParamString = sortedKeys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+  
+  return `https://restapi.amap.com/v3/staticmap?${encodedParamString}&sig=${sig}`;
 };
 
 const sections = [
@@ -183,7 +187,7 @@ const Navbar = () => {
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                   <a 
-                    href="https://uri.amap.com/marker?position=104.10015,30.69365&name=成都寅时智能科技有限公司" 
+                    href="https://uri.amap.com/marker?position=104.100021,30.693035&name=三友岛文创基地" 
                     target="_blank" 
                     rel="noreferrer"
                     className="bg-white text-black px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2"
