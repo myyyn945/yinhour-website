@@ -20,9 +20,10 @@ const AMAP_KEY = '858b623d913a2aed3f753df42cc60c55';
 const AMAP_SECRET = 'a9355dfcf13a443b0a2681556317ebca';
 
 const getAmapStaticMapUrl = () => {
-  // Coordinates for 三友路3号三友岛文创基地 (GCJ-02)
-  const lng = '104.100021';
-  const lat = '30.693035';
+  // Verified GCJ-02 coordinates for 三友路3号三友岛.文创园区
+  // (Converted from Baidu BD-09: 104.099682, 30.692636)
+  const lng = '104.093144';
+  const lat = '30.686566';
   
   const params: Record<string, string> = {
     key: AMAP_KEY,
@@ -32,17 +33,19 @@ const getAmapStaticMapUrl = () => {
     zoom: '16'
   };
 
-  // 1. Sort keys and create raw string for signature (NO encoding here)
+  // 1. Sort keys alphabetically
   const sortedKeys = Object.keys(params).sort();
-  const rawParamString = sortedKeys.map(key => `${key}=${params[key]}`).join('&');
   
-  // 2. Calculate signature: MD5(raw_params + secret)
-  const sig = CryptoJS.MD5(rawParamString + AMAP_SECRET).toString();
+  // 2. Build string for signature: k1=v1&k2=v2... (using RAW values)
+  const signString = sortedKeys.map(key => `${key}=${params[key]}`).join('&') + AMAP_SECRET;
   
-  // 3. Create encoded string for the final URL
-  const encodedParamString = sortedKeys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+  // 3. Calculate MD5 signature
+  const sig = CryptoJS.MD5(signString).toString();
   
-  return `https://restapi.amap.com/v3/staticmap?${encodedParamString}&sig=${sig}`;
+  // 4. Build final URL: values MUST be URL encoded
+  const urlParams = sortedKeys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+  
+  return `https://restapi.amap.com/v3/staticmap?${urlParams}&sig=${sig}`;
 };
 
 const sections = [
@@ -169,7 +172,7 @@ const Navbar = () => {
                   <div>
                     <p className="font-bold text-[#171a20] mb-1">公司地址</p>
                     <p className="text-gray-600 leading-relaxed text-sm">
-                      成都市成华区三友路3号三友岛文创基地2-11
+                      成都市成华区三友路3号三友岛.文创园区2-11
                     </p>
                   </div>
                 </div>
@@ -187,7 +190,7 @@ const Navbar = () => {
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                   <a 
-                    href="https://uri.amap.com/marker?position=104.100021,30.693035&name=三友岛文创基地" 
+                    href="https://uri.amap.com/marker?position=104.093144,30.686566&name=三友岛.文创园区&coordinate=gaode&callnative=1" 
                     target="_blank" 
                     rel="noreferrer"
                     className="bg-white text-black px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2"
