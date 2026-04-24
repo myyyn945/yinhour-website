@@ -162,20 +162,20 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             {/* Sci-fi Frame Container */}
             <div 
               onClick={onClose}
-              className="relative bg-black/40 border border-cyan-500/20 rounded-xl p-1 overflow-hidden shadow-[0_0_100px_rgba(6,182,212,0.1)] pointer-events-auto cursor-pointer"
+              className="relative bg-black/60 border border-[#F1E5AC]/20 rounded-xl p-1 overflow-hidden shadow-[0_0_100px_rgba(241,229,172,0.05)] pointer-events-auto cursor-pointer"
             >
               {/* Corner Accents */}
-              <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-cyan-400/60 rounded-tl-xl" />
-              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-cyan-400/60 rounded-tr-xl" />
-              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-cyan-400/60 rounded-bl-xl" />
-              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-cyan-400/60 rounded-br-xl" />
+              <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#F1E5AC]/40 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#F1E5AC]/40 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#F1E5AC]/40 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#F1E5AC]/40 rounded-br-xl" />
               
               {/* Background HUD elements */}
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#F1E5AC]/40 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#F1E5AC]/40 to-transparent" />
 
               {/* Scanline Effect */}
-              <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_3px,2px_100%] opacity-30" />
+              <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(241,229,172,0.01),rgba(241,229,172,0.01),rgba(241,229,172,0.01))] bg-[length:100%_3px,2px_100%] opacity-20" />
 
               <div className="relative p-10 md:p-20 flex flex-col items-center text-center">
                 <motion.div
@@ -184,9 +184,9 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                   transition={{ delay: 0.2 }}
                   className="mb-16"
                 >
-                  <h3 className="text-cyan-400 font-tech text-[10px] md:text-xs uppercase tracking-[0.5em] mb-4 opacity-70">Strategic Initiatives // 核心发展战略</h3>
-                  <div className="h-[1px] w-48 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent mx-auto relative group-hover:via-cyan-400 transition-all">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1 w-1 bg-cyan-400 rounded-full shadow-[0_0_10px_cyan]" />
+                  <h3 className="text-[#F1E5AC]/70 font-tech text-[10px] md:text-xs uppercase tracking-[0.5em] mb-4">Strategic Initiatives // 核心发展战略</h3>
+                  <div className="h-[1px] w-48 bg-gradient-to-r from-transparent via-[#F1E5AC]/30 to-transparent mx-auto relative group-hover:via-[#F1E5AC]/60 transition-all">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1 w-1 bg-[#F1E5AC] rounded-full shadow-[0_0_10px_rgba(241,229,172,0.5)]" />
                   </div>
                 </motion.div>
 
@@ -203,15 +203,15 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                       transition={{ delay: 0.4 + (idx * 0.2) }}
                       className="group flex flex-col items-center w-full px-2 md:px-8"
                     >
-                      <span className="text-[clamp(1rem,3.8vw,2rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-cyan-300 transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                      <span className="text-[clamp(1rem,3.8vw,2rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-[#F1E5AC] transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                         {item.zh}
                       </span>
-                      <span className={`${idx === 2 ? 'text-[clamp(5px,0.8vw,7.5px)] tracking-[0.2em]' : 'text-[clamp(6px,1.1vw,9px)] tracking-[0.4em]'} font-tech font-light text-cyan-100/40 uppercase whitespace-nowrap group-hover:text-cyan-200/80 transition-colors duration-700`}>
+                      <span className={`${idx === 2 ? 'text-[clamp(5px,0.8vw,7.5px)] tracking-[0.2em]' : 'text-[clamp(6px,1.1vw,9px)] tracking-[0.4em]'} font-tech font-light text-[#F1E5AC]/40 uppercase whitespace-nowrap group-hover:text-[#F1E5AC]/80 transition-colors duration-700`}>
                         {item.en}
                       </span>
                       {/* Decorative Line with Pulsing Glow */}
-                      <div className="relative w-12 group-hover:w-full h-[1px] bg-cyan-950 mt-8 transition-all duration-1000 ease-in-out">
-                        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative w-12 group-hover:w-full h-[1px] bg-amber-950/30 mt-8 transition-all duration-1000 ease-in-out">
+                        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-transparent via-[#F1E5AC]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </motion.div>
                   ))}
@@ -221,7 +221,7 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.4 }}
                   transition={{ delay: 1.5 }}
-                  className="mt-20 text-cyan-500/40 text-[10px] font-mono tracking-[0.5em] uppercase"
+                  className="mt-20 text-[#F1E5AC]/30 text-[10px] font-mono tracking-[0.5em] uppercase"
                 >
                   Click Anywhere to Return // 点击任意位置返回
                 </motion.div>
