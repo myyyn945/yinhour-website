@@ -129,6 +129,74 @@ const navLinks = [
 
 // --- Components ---
 
+const CompanyProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] cursor-pointer"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl z-[110] shadow-2xl max-h-[85vh] flex flex-col cursor-default overflow-hidden"
+          >
+            {/* Header - Fixed at top */}
+            <div className="flex justify-between items-start p-8 md:px-12 md:py-10 border-b border-gray-100 bg-white">
+              <div>
+                <h3 className="text-3xl font-bold text-[#171a20] mb-2 font-display">公司简介</h3>
+                <p className="text-gray-400 font-mono text-xs uppercase tracking-widest">Company Profile</p>
+              </div>
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-black/5 rounded-full transition-colors -mr-2"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            {/* Content Area - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-8 md:p-12">
+              <div className="space-y-6 text-[#171a20]/80 leading-relaxed text-base md:text-lg">
+                <p className="first-letter:text-4xl first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:text-[#171a20]">
+                  成都市寅时智能科技有限责任公司是一家专注于人工智能技术应用、生物制药高效研发、生物实验室智能化、显微技术创新的高新技术企业。公司核心团队均毕业于电子科技大学，拥有Oracle、摩托罗拉、联想等国内外知名科技企业资深从业背景，在AI算法、软件开发、精密光学、系统集成与数据智能领域具备深厚技术积累与成熟项目交付能力。
+                </p>
+                <p>
+                  公司坚持产学研深度协同，与电子科技大学、四川农业大学等高校科研团队保持长期紧密合作，并与华西等国家级高新技术实验室建立稳定的前沿技术合作体系，持续推动科研成果落地转化。
+                </p>
+                <p>
+                  公司以AI服务为核心能力，聚焦行业数字化转型与智能化升级，通过人工智能技术为生物制药、材料科学、石油行业等领域提供AI辅助研发、AI智能分析、AI数据处理、AI决策支撑等关键能力，打造覆盖全流程、一体化、可落地的AI行业转型解决方案，以完整技术体系支撑企业高效研发、智能管控与产业升级。
+                </p>
+                <p>
+                  同时，公司在材料科学领域拥有丰富实践案例，尤其在石油行业材料检测、材料分析与工业材料数字化管理方面积累了大量成熟客户应用，形成跨行业、多场景的综合解决方案能力。
+                </p>
+                <p className="font-medium text-[#171a20]">
+                  未来，公司将持续以AI技术为驱动，以产学研合作为支撑，为生物制药、生命科学、材料工程、石油化工等领域提供稳定、高效、智能的一体化解决方案，助力行业数字化、智能化高质量发展。
+                </p>
+              </div>
+              
+              <div className="mt-12 pt-8 border-t border-gray-100 flex justify-center">
+                <button 
+                  onClick={onClose}
+                  className="bg-[#171a20] text-white px-12 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:scale-105 transition-transform"
+                >
+                  返回
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -341,7 +409,7 @@ interface SectionData {
   key?: React.Key;
 }
 
-const Section = ({ section }: { section: SectionData, key?: React.Key }) => {
+const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryClick?: (id: string) => void, key?: React.Key }) => {
   const [idea, setIdea] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -471,7 +539,10 @@ const Section = ({ section }: { section: SectionData, key?: React.Key }) => {
               transition={{ delay: 0.5 }}
               className="w-full max-w-xl mx-auto flex flex-col sm:flex-row gap-4"
             >
-              <button className="flex-1 bg-white text-[#171a20] px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition-all">
+              <button 
+                onClick={() => onPrimaryClick?.(section.id)}
+                className="flex-1 bg-white text-[#171a20] px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition-all"
+              >
                 {section.primaryBtn}
               </button>
               <button className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all">
@@ -510,7 +581,10 @@ const Section = ({ section }: { section: SectionData, key?: React.Key }) => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="w-full max-w-xl flex flex-col sm:flex-row gap-4"
           >
-            <button className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all">
+            <button 
+              onClick={() => onPrimaryClick?.(section.id)}
+              className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
+            >
               {section.primaryBtn}
             </button>
             <button className="flex-1 bg-[#171a20]/60 backdrop-blur-md text-white px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-[#171a20]/80 transition-all">
@@ -534,13 +608,22 @@ const Section = ({ section }: { section: SectionData, key?: React.Key }) => {
 };
 
 export default function App() {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const handlePrimaryClick = (id: string) => {
+    if (id === 'mission') {
+      setIsProfileOpen(true);
+    }
+  };
+
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden" onClick={() => isProfileOpen && setIsProfileOpen(false)}>
       <Navbar />
+      <CompanyProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
       
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         {sections.map((section) => (
-          <Section key={section.id} section={section} />
+          <Section key={section.id} section={section} onPrimaryClick={handlePrimaryClick} />
         ))}
 
         {/* Footer (Minimalist) */}
