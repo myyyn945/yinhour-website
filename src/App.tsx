@@ -317,7 +317,23 @@ const DemoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
+    
+    // Create mailto link with form data
+    const recipient = 'yangpeng@yinhour.com';
+    const cc = 'wangz@yinhour.com';
+    const subject = encodeURIComponent(`预约产品演示 - ${formData.company} - ${formData.name}`);
+    const body = encodeURIComponent(`
+姓名：${formData.name}
+公司：${formData.company}
+手机：${formData.phone}
+邮箱：${formData.email}
+演示需求：
+${formData.requirements}
+    `.trim());
+    
+    window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+
+    // Simulate API call and success state
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -705,6 +721,14 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (idea.trim()) {
+      // Create mailto link with requirements
+      const recipient = 'yangpeng@yinhour.com';
+      const cc = 'wangz@yinhour.com';
+      const subject = encodeURIComponent('奇思AI想 - 创意提交');
+      const body = encodeURIComponent(idea.trim());
+      
+      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
       setIdea('');
