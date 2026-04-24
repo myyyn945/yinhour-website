@@ -206,7 +206,7 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                       <span className="text-[clamp(1rem,3.8vw,2rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-cyan-300 transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                         {item.zh}
                       </span>
-                      <span className="text-[clamp(6px,1.1vw,9px)] font-tech font-light text-cyan-100/40 tracking-[0.5em] uppercase whitespace-nowrap group-hover:text-cyan-200/80 transition-colors duration-700">
+                      <span className={`${idx === 2 ? 'text-[clamp(5px,0.8vw,7.5px)] tracking-[0.2em]' : 'text-[clamp(6px,1.1vw,9px)] tracking-[0.4em]'} font-tech font-light text-cyan-100/40 uppercase whitespace-nowrap group-hover:text-cyan-200/80 transition-colors duration-700`}>
                         {item.en}
                       </span>
                       {/* Decorative Line with Pulsing Glow */}
