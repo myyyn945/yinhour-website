@@ -37,20 +37,19 @@ interface SectionData {
 }
 
 const getAmapStaticMapUrl = () => {
-  // Verified GCJ-02 coordinates for 三友路3号三友岛.文创园区
-  const lng = '104.093144';
-  const lat = '30.686566';
+  // Coordinates for 成都市成华区三友路3号
+  const lng = '104.0912';
+  const lat = '30.6825';
   
   const params: Record<string, string> = {
     key: AMAP_KEY,
     location: `${lng},${lat}`,
-    markers: `mid,0xff0000,A:${lng},${lat}`,
-    scale: '2',
-    size: '600*350',
-    zoom: '16'
+    markers: `mid,red,1:${lng},${lat}`,
+    zoom: '16',
+    size: '640*360',
+    scale: '2'
   };
 
-  // Build final URL with MD5 signature (required by Amap when secret is enabled)
   const sortedKeys = Object.keys(params).sort();
   const signString = sortedKeys.map(key => `${key}=${params[key]}`).join('&') + AMAP_SECRET;
   const sig = CryptoJS.MD5(signString).toString();
@@ -490,7 +489,7 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
           <div className="flex justify-between items-start mb-8">
             <div className="pr-12">
               <h3 className="text-3xl font-black text-[#171a20] mb-2 font-display leading-tight">联系我们</h3>
-              <p className="text-gray-400 font-medium text-sm tracking-wide uppercase">寅时・智能 期待与您的合作 / CONTACT US</p>
+              <p className="text-gray-400 font-medium text-sm tracking-wide uppercase">期待与您的合作 / CONTACT US</p>
             </div>
             <button 
               onClick={onClose}
@@ -500,17 +499,14 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             </button>
           </div>
           
-          <div className="space-y-8">
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 group hover:border-cyan-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-[#171a20] text-white p-3 rounded-xl shadow-lg ring-4 ring-black/5">
-                  <MapPin size={20} />
+            <div className="space-y-8">
+            <div className="p-6 bg-gray-50/50 rounded-3xl border border-gray-100 group hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all duration-500">
+              <div className="flex items-center gap-5">
+                <div className="p-4 bg-white rounded-2xl shadow-sm text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white group-hover:scale-110 transition-all duration-500">
+                  <MapPin size={24} />
                 </div>
-                <div className="flex-1">
-                  <p className="font-bold text-[#171a20] mb-1.5 text-lg">公司地址</p>
-                  <p className="text-gray-600 leading-relaxed text-sm md:text-base font-medium">
-                    成都市成华区三友路3号三友岛.文创园区2-11
-                  </p>
+                <div>
+                  <p className="text-[#171a20] font-bold text-lg tracking-tight">成都市成华区三友路3号三友岛2-11室</p>
                 </div>
               </div>
             </div>
@@ -518,22 +514,22 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden border border-gray-200 relative group bg-gray-100 shadow-inner">
               <img 
                 src={getAmapStaticMapUrl()} 
-                alt="Amap Location"
+                alt="成都市寅时智能科技有限责任公司地址地图"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                referrerPolicy="no-referrer"
+                loading="lazy"
                 onError={(e) => {
                   e.currentTarget.src = "https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&q=80&w=800";
                 }}
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500 flex items-center justify-center">
                 <a 
-                  href="https://uri.amap.com/marker?position=104.093144,30.686566&name=三友时岛.文创园区&coordinate=gaode&callnative=1" 
+                  href="https://uri.amap.com/marker?position=104.0912,30.6825&name=成都寅时智能&coordinate=gaode&callnative=1" 
                   target="_blank" 
-                  rel="noreferrer"
+                  rel="noreferrer" 
                   className="bg-[#171a20] text-white px-8 py-3 rounded-full font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20 text-sm tracking-wider"
                 >
                   <MapPin size={18} className="text-cyan-400" />
-                  在高德地图卡查看详情
+                  在高德地图查看详情
                 </a>
               </div>
             </div>
