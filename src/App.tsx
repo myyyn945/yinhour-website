@@ -192,10 +192,10 @@ const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                       transition={{ delay: 0.4 + (idx * 0.2) }}
                       className="group flex flex-col items-center w-full px-2 md:px-8"
                     >
-                      <span className="text-[clamp(1.1rem,4vw,2.25rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-cyan-300 transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                      <span className="text-[clamp(1rem,3.8vw,2rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-cyan-300 transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                         {item.zh}
                       </span>
-                      <span className="text-[clamp(7px,1.2vw,10px)] font-tech font-light text-cyan-400/40 tracking-[0.5em] uppercase whitespace-nowrap">
+                      <span className="text-[clamp(6px,1.1vw,9px)] font-tech font-light text-cyan-100/40 tracking-[0.5em] uppercase whitespace-nowrap group-hover:text-cyan-200/80 transition-colors duration-700">
                         {item.en}
                       </span>
                       {/* Decorative Line with Pulsing Glow */}
@@ -271,7 +271,7 @@ const CompanyProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                   同时，公司在材料科学领域拥有丰富实践案例，尤其在石油行业材料检测、材料分析与工业材料数字化管理方面积累了大量成熟客户应用，形成跨行业、多场景的综合解决方案能力。
                 </p>
                 <p className="font-medium text-[#171a20]">
-                  未来，公司将持续以AI技术为驱动，以产学研合作为支撑，为生物制药、生命科学、材料工程、石油化工等领域提供稳定、高效、智能的一体化解决方案，助力行业数字化、智能化高质量发展。
+                  时序寅光，智启新程。未来，寅时智能将始终以 AI 前沿技术为核心引擎，依托产学研深度协同的创新生态，深耕生物制药、生命科学、材料工程等关键领域。我们持续打磨稳定、高效、定制化的一体化智能解决方案，聚焦产业痛点，释放科技价值，以数智力量驱动产业变革、赋能提质升级，携手各行各业奔赴数字化、智能化高质量发展新征程。
                 </p>
               </div>
               
