@@ -54,8 +54,7 @@ const sections = [
     title: '寅时・智能',
     subtitle: '智启寅时 · 科创未来',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000',
-    primaryBtn: '探索产品',
-    secondaryBtn: '了解更多',
+    primaryBtn: '开启探索之旅',
   },
   {
     id: 'mission',
@@ -70,7 +69,6 @@ const sections = [
     title: '领先AI解决方案',
     subtitle: '显微智能・体智运维・数智未来',
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2000',
-    primaryBtn: '了解详情',
     secondaryBtn: '预约演示',
     isProducts: true,
     productList: [
@@ -233,13 +231,13 @@ const CompanyProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] cursor-pointer"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[140] cursor-pointer"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl z-[110] shadow-2xl max-h-[85vh] flex flex-col cursor-default overflow-hidden"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl z-[150] shadow-2xl max-h-[85vh] flex flex-col cursor-default overflow-hidden"
           >
             {/* Header - Fixed at top */}
             <div className="flex justify-between items-start p-8 md:px-12 md:py-10 border-b border-gray-100 bg-white">
@@ -283,6 +281,170 @@ const CompanyProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                   返回
                 </button>
               </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const DemoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const [formData, setFormData] = React.useState({
+    name: '',
+    company: '',
+    phone: '',
+    email: '',
+    requirements: ''
+  });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        onClose();
+        setFormData({ name: '', company: '', phone: '', email: '', requirements: '' });
+      }, 2000);
+    }, 1000);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[160] cursor-pointer"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-lg bg-white rounded-2xl z-[170] shadow-2xl overflow-hidden cursor-default flex flex-col"
+          >
+            <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
+              <div>
+                <h3 className="text-2xl font-bold text-[#171a20] mb-1 font-display">预约产品演示</h3>
+                <p className="text-gray-400 font-mono text-[10px] uppercase tracking-widest">Book a Product Demo</p>
+              </div>
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-black/5 rounded-full transition-colors"
+                disabled={isSubmitting}
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="p-8 overflow-y-auto max-h-[70vh]">
+              <AnimatePresence mode="wait">
+                {submitted ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center py-12"
+                  >
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Zap className="text-green-500 w-8 h-8" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">预约提交成功</h4>
+                    <p className="text-gray-500">我们的专家团队将会在24小时内与您取得联系。</p>
+                  </motion.div>
+                ) : (
+                  <motion.form 
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">个人姓名</label>
+                        <input 
+                          required
+                          type="text"
+                          placeholder="您的姓名"
+                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/5 focus:bg-white transition-all text-sm"
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">公司名称</label>
+                        <input 
+                          required
+                          type="text"
+                          placeholder="所属公司/机构"
+                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/5 focus:bg-white transition-all text-sm"
+                          value={formData.company}
+                          onChange={(e) => setFormData({...formData, company: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">手机号码</label>
+                        <input 
+                          required
+                          type="tel"
+                          placeholder="您的手机号"
+                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/5 focus:bg-white transition-all text-sm"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">电子邮箱</label>
+                        <input 
+                          required
+                          type="email"
+                          placeholder="您的邮箱地址"
+                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/5 focus:bg-white transition-all text-sm"
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">详细演示需求</label>
+                      <textarea 
+                        required
+                        placeholder="请描述您的业务场景或希望演示的功能点..."
+                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black/5 focus:bg-white transition-all text-sm min-h-[120px] resize-none"
+                        value={formData.requirements}
+                        onChange={(e) => setFormData({...formData, requirements: e.target.value})}
+                      />
+                    </div>
+
+                    <button 
+                      disabled={isSubmitting}
+                      type="submit"
+                      className="w-full bg-[#171a20] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-[0.2em] hover:bg-black transition-all flex items-center justify-center gap-2 group"
+                    >
+                      {isSubmitting ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      ) : (
+                        <>
+                          提交预约申请
+                          <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </>
+                      )}
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         </>
@@ -633,18 +795,22 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick }: { section: Secti
               transition={{ delay: 0.5 }}
               className="w-full max-w-xl mx-auto flex flex-col sm:flex-row gap-4"
             >
-              <button 
-                onClick={() => onPrimaryClick?.(section.id)}
-                className="flex-1 bg-white text-[#171a20] px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition-all"
-              >
-                {section.primaryBtn}
-              </button>
-              <button 
-                onClick={() => onSecondaryClick?.(section.id)}
-                className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
-              >
-                {section.secondaryBtn}
-              </button>
+              {section.primaryBtn && (
+                <button 
+                  onClick={() => onPrimaryClick?.(section.id)}
+                  className="flex-1 bg-white text-[#171a20] px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition-all"
+                >
+                  {section.primaryBtn}
+                </button>
+              )}
+              {section.secondaryBtn && (
+                <button 
+                  onClick={() => onSecondaryClick?.(section.id)}
+                  className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
+                >
+                  {section.secondaryBtn}
+                </button>
+              )}
             </motion.div>
           </div>
         ) : section.isNews ? (
@@ -678,18 +844,22 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick }: { section: Secti
             transition={{ duration: 0.8, delay: 0.4 }}
             className="w-full max-w-xl flex flex-col sm:flex-row gap-4"
           >
-            <button 
-              onClick={() => onPrimaryClick?.(section.id)}
-              className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
-            >
-              {section.primaryBtn}
-            </button>
-            <button 
-              onClick={() => onSecondaryClick?.(section.id)}
-              className="flex-1 bg-[#171a20]/60 backdrop-blur-md text-white px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-[#171a20]/80 transition-all"
-            >
-              {section.secondaryBtn}
-            </button>
+            {section.primaryBtn && (
+              <button 
+                onClick={() => onPrimaryClick?.(section.id)}
+                className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
+              >
+                {section.primaryBtn}
+              </button>
+            )}
+            {section.secondaryBtn && (
+              <button 
+                onClick={() => onSecondaryClick?.(section.id)}
+                className="flex-1 bg-[#171a20]/60 backdrop-blur-md text-white px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-[#171a20]/80 transition-all"
+              >
+                {section.secondaryBtn}
+              </button>
+            )}
           </motion.div>
         )}
 
@@ -710,9 +880,12 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick }: { section: Secti
 export default function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isCoreValuesOpen, setIsCoreValuesOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const handlePrimaryClick = (sectionId: string) => {
-    if (sectionId === 'mission') {
+    if (sectionId === 'home') {
+      document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (sectionId === 'mission') {
       setIsProfileOpen(true);
     }
   };
@@ -720,14 +893,23 @@ export default function App() {
   const handleSecondaryClick = (sectionId: string) => {
     if (sectionId === 'mission') {
       setIsCoreValuesOpen(true);
+    } else if (sectionId === 'products') {
+      setIsDemoModalOpen(true);
     }
   };
 
+  const closeModal = () => {
+    setIsProfileOpen(false);
+    setIsCoreValuesOpen(false);
+    setIsDemoModalOpen(false);
+  };
+
   return (
-    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen) && (setIsProfileOpen(false), setIsCoreValuesOpen(false))}>
+    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen || isDemoModalOpen) && closeModal()}>
       <Navbar />
       <CompanyProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
       <CoreValuesModal isOpen={isCoreValuesOpen} onClose={() => setIsCoreValuesOpen(false)} />
+      <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
       
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         {sections.map((section) => (
