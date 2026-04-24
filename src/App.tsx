@@ -670,11 +670,11 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-5 bg-gray-50/50 rounded-2xl border border-gray-100 hover:bg-white transition-all duration-300 group">
                 <p className="text-[10px] text-cyan-600 font-bold mb-1.5 tracking-[0.2em] uppercase">商务合作 / Business</p>
-                <p className="text-sm font-bold text-[#171a20] group-hover:text-cyan-700 transition-colors tracking-wide">BD@yinhour.com</p>
+                <p className="text-sm font-bold text-[#171a20] group-hover:text-cyan-700 transition-colors tracking-wide">bd@yinhour.com</p>
               </div>
               <div className="p-5 bg-gray-50/50 rounded-2xl border border-gray-100 hover:bg-white transition-all duration-300 group">
                 <p className="text-[10px] text-cyan-600 font-bold mb-1.5 tracking-[0.2em] uppercase">加入我们 / Careers</p>
-                <p className="text-sm font-bold text-[#171a20] group-hover:text-cyan-700 transition-colors tracking-wide">HR@yinhour.com</p>
+                <p className="text-sm font-bold text-[#171a20] group-hover:text-cyan-700 transition-colors tracking-wide">contact@yinhour.com</p>
               </div>
             </div>
 
@@ -979,7 +979,8 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick }: {
                 {[...(section.cases || []), ...(section.cases || [])].map((item, idx) => (
                   <motion.div
                     key={`${item.name}-${idx}`}
-                    onClick={() => setSelectedPartner({ ...item, idx })}
+                    onMouseEnter={() => setSelectedPartner({ ...item, idx })}
+                    onMouseLeave={() => setSelectedPartner(null)}
                     className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/30 hover:scale-[1.05] transition-all duration-300 cursor-pointer group w-[280px] sm:w-[320px] shrink-0 flex flex-col relative"
                   >
                     <div className="absolute top-4 right-4 text-white/20 group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300">
@@ -1001,14 +1002,13 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick }: {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto cursor-pointer"
-                    onClick={() => setSelectedPartner(null)}
+                    className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-none"
                   />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    className="bg-white/15 backdrop-blur-xl border border-white/30 p-8 rounded-2xl shadow-2xl shadow-cyan-500/20 w-[90%] max-w-md pointer-events-auto relative z-10"
+                    className="bg-white/15 backdrop-blur-xl border border-white/30 p-8 rounded-2xl shadow-2xl shadow-cyan-500/20 w-[90%] max-w-md pointer-events-none relative z-10"
                   >
                     <div className="absolute top-6 right-6 text-cyan-400 scale-150">
                       {selectedPartner.icon}
