@@ -33,11 +33,11 @@ async function startServer() {
       
       const { data, error } = await client.emails.send({
         from: 'Yinhour Info <onboarding@resend.dev>',
-        to: ['yangpeng@yinhour.com'],
-        cc: ['wangz@yinhour.com'],
+        to: ['dswybs945@gmail.com'],
         subject: `预约产品演示 - ${company} - ${name}`,
         html: `
           <h3>预约详情</h3>
+          <p><strong>(原计划发送给 yangpeng@yinhour.com 和 wangz@yinhour.com，由于Resend测试域限制，暂发至此测试邮箱)</strong></p>
           <p><strong>姓名:</strong> ${name}</p>
           <p><strong>公司:</strong> ${company}</p>
           <p><strong>手机:</strong> ${phone}</p>
@@ -67,11 +67,11 @@ async function startServer() {
       
       const { data, error } = await client.emails.send({
         from: 'Yinhour Idea <onboarding@resend.dev>',
-        to: ['yangpeng@yinhour.com'],
-        cc: ['wangz@yinhour.com'],
+        to: ['dswybs945@gmail.com'],
         subject: '奇思AI想 - 创意提交',
         html: `
           <h3>新创意提交</h3>
+          <p><strong>(原计划发送给 yangpeng@yinhour.com 和 wangz@yinhour.com，由于Resend测试域限制，暂发至此测试邮箱)</strong></p>
           <p>${idea}</p>
         `,
       });

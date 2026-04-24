@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import CryptoJS from 'crypto-js';
 import { 
+  Scale,
+  Droplet,
+  Microscope,
+  Factory,
+  Beaker,
   ChevronDown,
   Menu,
   X,
@@ -97,10 +102,6 @@ const sections: SectionData[] = [
     subtitle: '获取最新的技术突破与行业前瞻',
     image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=2000',
     isNews: true,
-    buttons: [
-      { label: '国内动态', type: 'domestic', primary: true },
-      { label: '国际动态', type: 'international', primary: false },
-    ]
   },
   {
     id: 'partners',
@@ -111,11 +112,11 @@ const sections: SectionData[] = [
     secondaryBtn: '成为伙伴',
     isPartners: true,
     cases: [
-      { name: '成都某大型光模块龙头企业', desc: '智能产线升级，效率提升 45%' },
-      { name: '广东某血液制品领军企业', desc: 'AI自动化检测准确率提升75%，实现QC自动化/精准化/合规化' },
-      { name: '成都某知名律师事务所', desc: 'AI实现标准化/高频次/即时性工作，专业律师超级延伸版' },
-      { name: '成都某石油科技公司', desc: 'AI深度助力化学剂研发，提升产品稳定适应性' },
-      { name: '成都某著名专业药物非临床安全性评价机构', desc: '微观世界AI智视，服务新特药研发' },
+      { name: '成都某大型光模块龙头企业', desc: '智能产线升级，效率提升 45%', icon: <Cpu size={24} /> },
+      { name: '广东某血液制品领军企业', desc: 'AI自动化检测准确率提升75%，实现QC自动化/精准化/合规化', icon: <Droplet size={24} /> },
+      { name: '成都某知名律师事务所', desc: 'AI实现标准化/高频次/即时性工作，专业律师超级延伸版', icon: <Scale size={24} /> },
+      { name: '成都某石油科技公司', desc: 'AI深度助力化学剂研发，提升产品稳定适应性', icon: <Factory size={24} /> },
+      { name: '成都某著名专业药物非临床安全性评价机构', desc: '微观世界AI智视，服务新特药研发', icon: <Microscope size={24} /> },
     ]
   },
   {
@@ -126,6 +127,120 @@ const sections: SectionData[] = [
     primaryBtn: '提交创意',
     secondaryBtn: '查看灵感',
     isInteractive: true,
+  }
+];
+
+const domesticNews = [
+  {
+    id: 1,
+    title: "智谱AI发布全新大模型ChatGLM-4",
+    summary: "性能大幅提升，在多维基准测试中表现优异，进一步缩小了与国际顶尖模型的差距。新模型在理解、生成和逻辑推理方面都有了显著进步。",
+    date: "2026-04-23",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+    category: "模型发布",
+    url: "https://www.aibase.com/zh"
+  },
+  {
+    id: 2,
+    title: "腾讯混元大模型全面向企业开放",
+    summary: "助力各行各业实现数智化转型，提供更加灵活的API接入与定制化方案。目前已有超过100家行业领先企业接入测试。",
+    date: "2026-04-22",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
+    category: "行业落地",
+    url: "https://www.aibase.com/zh"
+  },
+  {
+    id: 3,
+    title: "字节跳动发布自研视频大模型PixelDance",
+    summary: "视频生成更连贯，支持更长时长的复杂动作逻辑生成，引起行业广泛关注。该技术将在短视频创作和广告营销中发挥巨大潜力。",
+    date: "2026-04-21",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
+    category: "多模态",
+    url: "https://www.aibase.com/zh"
+  },
+  {
+    id: 4,
+    title: "百度文心一言用户数突破3亿",
+    summary: "生态应用蓬勃发展，成为国内用户量最大的生成式AI平台之一。百度正致力于通过插件系统和插件市场进一步丰富其生态系统。",
+    date: "2026-04-20",
+    image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800",
+    category: "市场动态",
+    url: "https://www.aibase.com/zh"
+  },
+  {
+    id: 5,
+    title: "阿里的通义千问模型开源更多版本",
+    summary: "通义千问再次刷新开源大模型底座能力，发布多款不同尺寸的开源模型，推动AI生态普惠。",
+    date: "2026-04-19",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
+    category: "开源生态",
+    url: "https://www.aibase.com/zh"
+  },
+  {
+    id: 6,
+    title: "科大讯飞星火大模型升级V4.0版本",
+    summary: "重点升级了底座能力，在文本生成、语言理解、知识问答等方面实现全面超越，为教育和医疗领域带来新应用。",
+    date: "2026-04-18",
+    image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&q=80&w=800",
+    category: "技术突破",
+    url: "https://www.aibase.com/zh"
+  }
+];
+
+const internationalNews = [
+  {
+    id: 1,
+    title: "OpenAI 'Strawberry' reasoning model",
+    summary: "OpenAI is reportedly developing a new model code-named 'Strawberry' designed to handle complex reasoning tasks with higher precision, moving closer to AGI.",
+    date: "2026-04-23",
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800",
+    category: "R&D",
+    url: "https://www.bloomberg.com/ai"
+  },
+  {
+    id: 2,
+    title: "Nvidia hits all-time high on AI chip demand",
+    summary: "The GPU giant sees unprecedented growth as data centers around the world rapidly expand their AI training capabilities. Market cap continues to soar.",
+    date: "2026-04-22",
+    image: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800",
+    category: "Finance",
+    url: "https://www.bloomberg.com/ai"
+  },
+  {
+    id: 3,
+    title: "Anthropic launches Claude 3.5 Sonnet",
+    summary: "New benchmarks show Claude 3.5 Sonnet outperforming competitors in coding, translation, and text analysis tasks, setting a new industry bar for intelligence.",
+    date: "2026-04-21",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
+    category: "Benchmark",
+    url: "https://www.bloomberg.com/ai"
+  },
+  {
+    id: 4,
+    title: "Mistral Large 2 sets new open-weights standard",
+    summary: "The European AI powerhouse releases its most capable model yet, challenging the dominance of closed-source giants with efficient hardware utilization.",
+    date: "2026-04-20",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+    category: "Open Source",
+    url: "https://www.bloomberg.com/ai"
+  },
+  {
+    id: 5,
+    title: "Meta releases LLaMA 4",
+    summary: "The highly anticipated open-weights model introduces breakthrough architecture for multimodality and significantly longer context windows.",
+    date: "2026-04-19",
+    image: "https://images.unsplash.com/photo-1542626991-cbc4e32524cc?auto=format&fit=crop&q=80&w=800",
+    category: "Open Source",
+    url: "https://www.bloomberg.com/ai"
+  },
+  {
+    id: 6,
+    title: "Google DeepMind unveils Gemini 2.0",
+    summary: "New capabilities in logic integration and real-time environment adaptation push the boundaries of spatial computing and robotics.",
+    date: "2026-04-18",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+    category: "Model Release",
+    url: "https://www.bloomberg.com/ai"
   }
 ];
 
@@ -339,26 +454,9 @@ const DemoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
       }, 2000);
     } catch (err) {
       console.error('Error sending demo request:', err);
-      // Fallback to mailto if API fails
-      const recipient = 'yangpeng@yinhour.com';
-      const cc = 'wangz@yinhour.com';
-      const subject = encodeURIComponent(`预约产品演示 - ${formData.company} - ${formData.name}`);
-      const body = encodeURIComponent(`
-姓名：${formData.name}
-公司：${formData.company}
-手机：${formData.phone}
-邮箱：${formData.email}
-演示需求：
-${formData.requirements}
-      `.trim());
-      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+      alert('抱歉，邮件发送失败。如果您配置了自定义域名，请检查Resend API密钥及发送限制。');
       
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-        setFormData({ name: '', company: '', phone: '', email: '', requirements: '' });
-      }, 2000);
+      setSubmitted(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -632,45 +730,47 @@ const Navbar = ({ onContactClick, onCloseAll }: {
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-black/40 backdrop-blur-md border-b border-white/5"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center border-b border-white/5 bg-black/40 backdrop-blur-md"
     >
-      <div className="flex-1">
-        <a href="#home" onClick={onCloseAll} className="flex items-center min-h-[40px]">
-          {!logoError ? (
-            <img 
-              src="/logo.png" 
-              alt="In Time Brand" 
-              className="h-10 md:h-14 w-auto object-contain"
-              referrerPolicy="no-referrer"
-              onError={() => setLogoError(true)}
-            />
-          ) : (
-            <span className="font-bold text-xl tracking-[0.2em] text-white uppercase font-display">
-              寅时・智能
-            </span>
-          )}
-        </a>
-      </div>
-
-      <div className="hidden md:flex items-center gap-6">
-        {navLinks.map((link) => (
-          <a
-            key={link.name}
-            href={link.href}
-            className="text-xs font-tech font-semibold text-white px-4 py-2 rounded-md hover:bg-white/10 transition-colors uppercase tracking-[0.2em]"
-          >
-            {link.name}
+      <div className="w-full max-w-7xl px-8 py-4 flex items-center justify-between">
+        <div className="flex-1">
+          <a href="#home" onClick={onCloseAll} className="flex items-center min-h-[40px]">
+            {!logoError ? (
+              <img 
+                src="/logo.png" 
+                alt="In Time Brand" 
+                className="h-10 md:h-14 w-auto object-contain"
+                referrerPolicy="no-referrer"
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <span className="font-bold text-xl tracking-[0.2em] text-white uppercase font-display">
+                寅时・智能
+              </span>
+            )}
           </a>
-        ))}
-      </div>
+        </div>
 
-      <div className="flex-1 flex justify-end gap-4">
-        <button 
-          onClick={onContactClick}
-          className="hidden md:block text-xs font-tech font-semibold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors uppercase tracking-[0.2em]"
-        >
-          联系我们
-        </button>
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-xs font-tech font-semibold text-white px-4 py-2 rounded-md hover:bg-white/10 transition-colors uppercase tracking-[0.2em]"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex-1 flex justify-end gap-4">
+          <button 
+            onClick={onContactClick}
+            className="hidden md:block text-xs font-tech font-semibold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors uppercase tracking-[0.2em]"
+          >
+            联系我们
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -727,17 +827,16 @@ const Navbar = ({ onContactClick, onCloseAll }: {
   );
 };
 
-const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: { 
+const Section = ({ section, onPrimaryClick, onSecondaryClick }: { 
   section: SectionData, 
   onPrimaryClick?: (id: string) => void, 
   onSecondaryClick?: (id: string) => void,
-  onNewsClick?: (type: 'domestic' | 'international') => void,
   key?: React.Key 
 }) => {
   const [idea, setIdea] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedPartner, setSelectedPartner] = useState<any>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -762,16 +861,7 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
       setIdea('');
     } catch (err) {
       console.error('Error sending idea:', err);
-      // Fallback to mailto
-      const recipient = 'yangpeng@yinhour.com';
-      const cc = 'wangz@yinhour.com';
-      const subject = encodeURIComponent('奇思AI想 - 创意提交');
-      const body = encodeURIComponent(idea.trim());
-      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
-      
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 3000);
-      setIdea('');
+      alert('抱歉，创意提交失败。如果您配置了自定义域名，请检查Resend API密钥及发送限制。');
     } finally {
       setIsSubmitting(false);
     }
@@ -781,7 +871,7 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
     <section 
       id={section.id}
       className={cn(
-        "relative h-screen w-full flex flex-col items-center justify-between py-24 snap-start overflow-hidden",
+        "relative min-h-[100dvh] w-full flex flex-col items-center justify-center py-24 snap-start overflow-hidden",
         section.id === 'home' && "snap-always"
       )}
     >
@@ -799,17 +889,17 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.5 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10 text-center px-6 pt-12"
+        className="relative z-10 text-center px-6 mb-12 sm:mb-16 lg:mb-20"
       >
-        <h1 className="text-4xl md:text-5xl font-display font-semibold text-white mb-2 tracking-tight">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-4 tracking-tight drop-shadow-lg">
           {section.title}
         </h1>
-        <p className="text-sm md:text-base text-white/80 font-tech font-light uppercase tracking-widest underline underline-offset-4 decoration-1">
+        <p className="text-sm md:text-base text-white/90 font-tech font-light uppercase tracking-[0.2em] underline underline-offset-[8px] decoration-1 decoration-white/50 drop-shadow-md">
           {section.subtitle}
         </p>
       </motion.div>
 
-      <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center gap-8">
+      <div className="relative z-10 w-full max-w-6xl px-6 flex flex-col items-center gap-8">
         {section.isInteractive ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -861,26 +951,80 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
             </AnimatePresence>
           </motion.div>
         ) : section.isPartners ? (
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {section.cases?.map((item, idx) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all cursor-default group"
+          <>
+            <style>{`
+              @keyframes slide-left {
+                from { transform: translateX(0); }
+                to { transform: translateX(-50%); }
+              }
+            `}</style>
+            <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-8 relative z-10">
+              <div 
+                className="flex w-max gap-4 md:gap-6 pr-4 md:pr-6"
+                style={{ 
+                  animation: 'slide-left 25s linear infinite',
+                  animationPlayState: selectedPartner ? 'paused' : 'running'
+                }}
+                onMouseEnter={(e) => {
+                  if (!selectedPartner) {
+                    e.currentTarget.style.animationPlayState = 'paused';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!selectedPartner) {
+                    e.currentTarget.style.animationPlayState = 'running';
+                  }
+                }}
               >
-                <h4 className="text-white font-bold mb-2 flex items-center gap-2">
-                  <ArrowRight size={16} className="text-white/50 group-hover:translate-x-1 transition-transform" />
-                  {item.name}
-                </h4>
-                <p className="text-white/60 text-sm">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+                {[...(section.cases || []), ...(section.cases || [])].map((item, idx) => (
+                  <motion.div
+                    key={`${item.name}-${idx}`}
+                    onClick={() => setSelectedPartner({ ...item, idx })}
+                    className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/30 hover:scale-[1.05] transition-all duration-300 cursor-pointer group w-[280px] sm:w-[320px] shrink-0 flex flex-col relative"
+                  >
+                    <div className="absolute top-4 right-4 text-white/20 group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300">
+                      {item.icon}
+                    </div>
+                    <h4 className="text-white font-bold mb-3 flex items-start gap-2 pr-8">
+                      <span className="line-clamp-2 leading-snug group-hover:line-clamp-none transition-all">{item.name}</span>
+                    </h4>
+                    <p className="text-white/60 text-sm mt-auto group-hover:text-white/90 transition-colors">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <AnimatePresence>
+              {selectedPartner && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto cursor-pointer"
+                    onClick={() => setSelectedPartner(null)}
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    className="bg-white/15 backdrop-blur-xl border border-white/30 p-8 rounded-2xl shadow-2xl shadow-cyan-500/20 w-[90%] max-w-md pointer-events-auto relative z-10"
+                  >
+                    <div className="absolute top-6 right-6 text-cyan-400 scale-150">
+                      {selectedPartner.icon}
+                    </div>
+                    <h4 className="text-white font-bold mb-6 pr-12 text-2xl leading-snug">
+                      {selectedPartner.name}
+                    </h4>
+                    <p className="text-white/80 text-lg leading-relaxed">{selectedPartner.desc}</p>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
+          </>
         ) : section.isProducts ? (
-          <div className="w-full flex flex-col gap-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="w-full flex flex-col gap-8 md:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               {section.productList?.map((product, idx) => (
                 <motion.div
                   key={product.name}
@@ -921,34 +1065,83 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
             </motion.div>
           </div>
         ) : section.isNews ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="w-full max-w-xl flex flex-col sm:flex-row gap-4"
-          >
-            {section.buttons?.map((btn) => (
-              <button 
-                key={btn.label}
-                onClick={() => {
-                  if (btn.type) {
-                    onNewsClick?.(btn.type);
-                  } else if (btn.href) {
-                    window.open(btn.href, '_blank');
-                  }
-                }}
-                className={cn(
-                  "flex-1 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider transition-all backdrop-blur-md border",
-                  btn.primary 
-                    ? "bg-white/15 text-white border-white/20 hover:bg-white/25" 
-                    : "bg-[#171a20]/60 text-white border-transparent hover:bg-[#171a20]/80"
-                )}
-              >
-                {btn.label}
-              </button>
-            ))}
-          </motion.div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 h-[60vh] min-h-[400px] mt-4">
+            {/* Left Card: Domestic */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 md:p-8 flex flex-col h-full overflow-hidden hover:bg-white/[0.15] transition-colors"
+            >
+              <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-1.5 h-6 bg-cyan-400 rounded-full"></span>
+                国内动态
+                <span className="text-xs font-mono text-white/40 font-normal tracking-widest uppercase ml-auto">China</span>
+              </h3>
+              <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                {domesticNews.map(item => (
+                  <div 
+                    key={item.id} 
+                    className="group bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/20 rounded-2xl p-4 transition-all cursor-pointer flex gap-4 h-32"
+                    onClick={() => window.open(item.url, '_blank')}
+                  >
+                    <div className="w-24 h-full shrink-0 rounded-xl overflow-hidden hidden sm:block">
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    <div className="flex flex-col flex-1 h-full justify-between">
+                      <div>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <span className="text-cyan-400 text-[10px] font-mono tracking-widest">{item.date}</span>
+                          <span className="bg-white/10 text-white/80 text-[10px] px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/5">{item.category}</span>
+                        </div>
+                        <h4 className="text-white font-bold text-sm mb-1.5 group-hover:text-cyan-400 transition-colors line-clamp-1">{item.title}</h4>
+                        <p className="text-white/60 text-xs line-clamp-2 leading-relaxed">{item.summary}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right Card: International */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 md:p-8 flex flex-col h-full overflow-hidden hover:bg-white/[0.15] transition-colors"
+            >
+              <h3 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-1.5 h-6 bg-purple-400 rounded-full"></span>
+                国际动态
+                <span className="text-xs font-mono text-white/40 font-normal tracking-widest uppercase ml-auto">Global</span>
+              </h3>
+              <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                {internationalNews.map(item => (
+                  <div 
+                    key={item.id} 
+                    className="group bg-black/20 hover:bg-black/40 border border-white/5 hover:border-white/20 rounded-2xl p-4 transition-all cursor-pointer flex gap-4 h-32"
+                    onClick={() => window.open(item.url, '_blank')}
+                  >
+                    <div className="w-24 h-full shrink-0 rounded-xl overflow-hidden hidden sm:block">
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    <div className="flex flex-col flex-1 h-full justify-between">
+                      <div>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <span className="text-purple-400 text-[10px] font-mono tracking-widest">{item.date}</span>
+                          <span className="bg-white/10 text-white/80 text-[10px] px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/5">{item.category}</span>
+                        </div>
+                        <h4 className="text-white font-bold text-sm mb-1.5 group-hover:text-purple-400 transition-colors line-clamp-1">{item.title}</h4>
+                        <p className="text-white/60 text-xs line-clamp-2 leading-relaxed">{item.summary}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         ) : (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -975,201 +1168,18 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
             )}
           </motion.div>
         )}
-
-        {section.id === 'home' && (
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-white"
-          >
-            <ChevronDown size={32} strokeWidth={1.5} />
-          </motion.div>
-        )}
       </div>
-    </section>
-  );
-};
 
-const NewsModal = ({ isOpen, onClose, type }: { isOpen: boolean; onClose: () => void; type: 'domestic' | 'international' | null }) => {
-  const domesticNews = [
-    {
-      id: 1,
-      title: "智谱AI发布全新大模型ChatGLM-4",
-      summary: "性能大幅提升，在多维基准测试中表现优异，进一步缩小了与国际顶尖模型的差距。新模型在理解、生成和逻辑推理方面都有了显著进步。",
-      date: "2026-04-23",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-      category: "模型发布",
-      url: "https://www.aibase.com/zh"
-    },
-    {
-      id: 2,
-      title: "腾讯混元大模型全面向企业开放",
-      summary: "助力各行各业实现数智化转型，提供更加灵活的API接入与定制化方案。目前已有超过100家行业领先企业接入测试。",
-      date: "2026-04-22",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-      category: "行业落地",
-      url: "https://www.aibase.com/zh"
-    },
-    {
-      id: 3,
-      title: "字节跳动发布自研视频大模型PixelDance",
-      summary: "视频生成更连贯，支持更长时长的复杂动作逻辑生成，引起行业广泛关注。该技术将在短视频创作和广告营销中发挥巨大潜力。",
-      date: "2026-04-21",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
-      category: "多模态",
-      url: "https://www.aibase.com/zh"
-    },
-    {
-      id: 4,
-      title: "百度文心一言用户数突破3亿",
-      summary: "生态应用蓬勃发展，成为国内用户量最大的生成式AI平台之一。百度正致力于通过插件系统和插件市场进一步丰富其生态系统。",
-      date: "2026-04-20",
-      image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800",
-      category: "市场动态",
-      url: "https://www.aibase.com/zh"
-    }
-  ];
-
-  const internationalNews = [
-    {
-      id: 1,
-      title: "OpenAI 'Strawberry' reasoning model",
-      summary: "OpenAI is reportedly developing a new model code-named 'Strawberry' designed to handle complex reasoning tasks with higher precision, moving closer to AGI.",
-      date: "2026-04-23",
-      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800",
-      category: "R&D",
-      url: "https://www.bloomberg.com/ai"
-    },
-    {
-      id: 2,
-      title: "Nvidia hits all-time high on AI chip demand",
-      summary: "The GPU giant sees unprecedented growth as data centers around the world rapidly expand their AI training capabilities. Market cap continues to soar.",
-      date: "2026-04-22",
-      image: "https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800",
-      category: "Finance",
-      url: "https://www.bloomberg.com/ai"
-    },
-    {
-      id: 3,
-      title: "Anthropic launches Claude 3.5 Sonnet",
-      summary: "New benchmarks show Claude 3.5 Sonnet outperforming competitors in coding, translation, and text analysis tasks, setting a new industry bar for intelligence.",
-      date: "2026-04-21",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
-      category: "Benchmark",
-      url: "https://www.bloomberg.com/ai"
-    },
-    {
-      id: 4,
-      title: "Mistral Large 2 sets new open-weights standard",
-      summary: "The European AI powerhouse releases its most capable model yet, challenging the dominance of closed-source giants with efficient hardware utilization.",
-      date: "2026-04-20",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
-      category: "Open Source",
-      url: "https://www.bloomberg.com/ai"
-    }
-  ];
-
-  const news = type === 'domestic' ? domesticNews : internationalNews;
-  const title = type === 'domestic' ? '国内AI动态' : '国际AI动态';
-  const subtitle = type === 'domestic' ? 'China AI Headlines' : 'Global AI Insights';
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-xl z-[200] cursor-pointer"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-0 z-[210] flex flex-col bg-white overflow-hidden pointer-events-none"
-          >
-            {/* Header */}
-            <div className="flex justify-between items-center px-8 py-6 border-b border-gray-100 bg-white pointer-events-auto">
-              <div>
-                <h3 className="text-2xl font-bold text-[#171a20] font-display">{title}</h3>
-                <p className="text-gray-400 font-mono text-[10px] uppercase tracking-widest">{subtitle}</p>
-              </div>
-              <button 
-                onClick={onClose}
-                className="relative w-12 h-12 flex items-center justify-center rounded-full border border-cyan-500/30 bg-black hover:bg-white text-white hover:text-black transition-all duration-500 group shadow-[0_0_20px_rgba(6,182,212,0.15)]"
-                title="返回"
-              >
-                <div className="absolute inset-0 rounded-full border border-cyan-500/0 group-hover:border-cyan-500/50 scale-125 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
-                <ArrowRight className="rotate-180 relative z-10 group-hover:-translate-x-1 transition-transform duration-500" size={24} />
-              </button>
-            </div>
-
-            {/* News Grid */}
-            <div className="flex-1 overflow-y-auto p-8 md:p-12 pointer-events-auto bg-gray-50">
-              <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                {news.map((item, idx) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] border border-gray-100 group hover:shadow-2xl hover:-translate-y-1 transition-all flex flex-col sm:flex-row h-full md:h-64"
-                  >
-                    <div className="w-full sm:w-2/5 h-48 sm:h-full relative overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                        referrerPolicy="no-referrer"
-                      />
-                      {/* Hover Summary Overlay */}
-                      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center p-6 backdrop-blur-sm">
-                        <motion.p 
-                          initial={{ y: 20, opacity: 0 }}
-                          whileInView={{ y: 0, opacity: 1 }}
-                          className="text-white text-xs leading-relaxed text-center font-light italic"
-                        >
-                          {item.summary}
-                        </motion.p>
-                      </div>
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#171a20] z-10">
-                        {item.category}
-                      </div>
-                    </div>
-                    <div className="flex-1 p-6 flex flex-col justify-between bg-white relative">
-                      <div className="relative">
-                        <p className="text-xs font-mono text-gray-400 mb-2">{item.date}</p>
-                        <h4 className="text-xl font-bold text-[#171a20] mb-3 leading-tight group-hover:text-cyan-600 transition-colors">
-                          {item.title}
-                        </h4>
-                        <div className="h-0.5 w-0 group-hover:w-12 bg-cyan-500 transition-all duration-500" />
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-gray-50 flex justify-end">
-                        <button 
-                          onClick={() => window.open(item.url, '_blank')}
-                          className="text-[#171a20] text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-1 hover:gap-3 transition-all cursor-pointer group/btn"
-                        >
-                          阅读全文 
-                          <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Bottom Decorative */}
-              <div className="mt-20 text-center text-gray-300 font-mono text-[10px] uppercase tracking-[0.5em]">
-                EndOfResults // 已加载全部资讯
-              </div>
-            </div>
-          </motion.div>
-        </>
+      {section.id === 'home' && (
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white z-20"
+        >
+          <ChevronDown size={32} strokeWidth={1.5} />
+        </motion.div>
       )}
-    </AnimatePresence>
+    </section>
   );
 };
 
@@ -1178,7 +1188,8 @@ export default function App() {
   const [isCoreValuesOpen, setIsCoreValuesOpen] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [newsType, setNewsType] = useState<'domestic' | 'international' | null>(null);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isLegalOpen, setIsLegalOpen] = useState(false);
 
   const handlePrimaryClick = (sectionId: string) => {
     if (sectionId === 'home') {
@@ -1202,25 +1213,17 @@ export default function App() {
     }
   };
 
-  const handleNewsClick = (type: 'domestic' | 'international') => {
-    setNewsType(type);
-  };
-
-  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-  const [isLegalOpen, setIsLegalOpen] = useState(false);
-
   const closeModal = () => {
     setIsProfileOpen(false);
     setIsCoreValuesOpen(false);
     setIsDemoModalOpen(false);
     setIsContactModalOpen(false);
-    setNewsType(null);
     setIsPrivacyOpen(false);
     setIsLegalOpen(false);
   };
 
   return (
-    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen || isDemoModalOpen || isContactModalOpen || newsType || isPrivacyOpen || isLegalOpen) && closeModal()}>
+    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen || isDemoModalOpen || isContactModalOpen || isPrivacyOpen || isLegalOpen) && closeModal()}>
       <Navbar 
         onContactClick={() => setIsContactModalOpen(true)} 
         onCloseAll={closeModal}
@@ -1228,7 +1231,6 @@ export default function App() {
       <CompanyProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
       <CoreValuesModal isOpen={isCoreValuesOpen} onClose={() => setIsCoreValuesOpen(false)} />
       <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
-      <NewsModal isOpen={!!newsType} type={newsType} onClose={() => setNewsType(null)} />
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
 
       {/* Privacy Policy Modal */}
@@ -1296,7 +1298,6 @@ export default function App() {
             section={section} 
             onPrimaryClick={handlePrimaryClick}
             onSecondaryClick={handleSecondaryClick}
-            onNewsClick={handleNewsClick}
           />
         ))}
 
