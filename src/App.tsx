@@ -129,6 +129,100 @@ const navLinks = [
 
 // --- Components ---
 
+const CoreValuesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/85 backdrop-blur-2xl z-[120] cursor-pointer"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, rotateX: 15 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+            exit={{ opacity: 0, scale: 0.85, rotateX: 15 }}
+            onClick={onClose}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-4xl z-[130] perspective-2000 pointer-events-none"
+          >
+            {/* Sci-fi Frame Container */}
+            <div 
+              onClick={onClose}
+              className="relative bg-black/40 border border-cyan-500/20 rounded-xl p-1 overflow-hidden shadow-[0_0_100px_rgba(6,182,212,0.1)] pointer-events-auto cursor-pointer"
+            >
+              {/* Corner Accents */}
+              <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-cyan-400/60 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-cyan-400/60 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-cyan-400/60 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-cyan-400/60 rounded-br-xl" />
+              
+              {/* Background HUD elements */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+
+              {/* Scanline Effect */}
+              <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_3px,2px_100%] opacity-30" />
+
+              <div className="relative p-10 md:p-20 flex flex-col items-center text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-16"
+                >
+                  <h3 className="text-cyan-400 font-tech text-[10px] md:text-xs uppercase tracking-[0.5em] mb-4 opacity-70">Strategic Initiatives // 核心发展战略</h3>
+                  <div className="h-[1px] w-48 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent mx-auto relative group-hover:via-cyan-400 transition-all">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1 w-1 bg-cyan-400 rounded-full shadow-[0_0_10px_cyan]" />
+                  </div>
+                </motion.div>
+
+                <div className="space-y-8 md:space-y-12 w-full overflow-hidden">
+                  {[
+                    { zh: "以AI技术为驱动", en: "DRIVEN BY CORE AI TECHNOLOGY" },
+                    { zh: "以产学研合为支撑", en: "SUPPORTED BY UNIVERSITY-INDUSTRY SYNERGY" },
+                    { zh: "寅时启智 数赋生科 智创材料 赋能未来", en: "INTELLIGENT INSIGHT DIGITAL LIFE SCIENCES INNOVATIVE MATERIALS EMPOWERING THE FUTURE" }
+                  ].map((item, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + (idx * 0.2) }}
+                      className="group flex flex-col items-center w-full px-2 md:px-8"
+                    >
+                      <span className="text-[clamp(1.1rem,4vw,2.25rem)] font-display font-light text-white tracking-[0.25em] mb-3 group-hover:text-cyan-300 transition-all duration-700 whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        {item.zh}
+                      </span>
+                      <span className="text-[clamp(7px,1.2vw,10px)] font-tech font-light text-cyan-400/40 tracking-[0.5em] uppercase whitespace-nowrap">
+                        {item.en}
+                      </span>
+                      {/* Decorative Line with Pulsing Glow */}
+                      <div className="relative w-12 group-hover:w-full h-[1px] bg-cyan-950 mt-8 transition-all duration-1000 ease-in-out">
+                        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.4 }}
+                  transition={{ delay: 1.5 }}
+                  className="mt-20 text-cyan-500/40 text-[10px] font-mono tracking-[0.5em] uppercase"
+                >
+                  Click Anywhere to Return // 点击任意位置返回
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const CompanyProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
     <AnimatePresence>
@@ -316,7 +410,7 @@ const Navbar = () => {
           <a
             key={link.name}
             href={link.href}
-            className="text-sm font-bold text-white px-4 py-2 rounded-md hover:bg-white/10 transition-colors"
+            className="text-xs font-tech font-semibold text-white px-4 py-2 rounded-md hover:bg-white/10 transition-colors uppercase tracking-[0.2em]"
           >
             {link.name}
           </a>
@@ -326,7 +420,7 @@ const Navbar = () => {
       <div className="flex-1 flex justify-end gap-4">
         <button 
           onClick={() => setIsContactModalOpen(true)}
-          className="hidden md:block text-sm font-bold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+          className="hidden md:block text-xs font-tech font-semibold text-white px-6 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors uppercase tracking-[0.2em]"
         >
           联系我们
         </button>
@@ -409,7 +503,7 @@ interface SectionData {
   key?: React.Key;
 }
 
-const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryClick?: (id: string) => void, key?: React.Key }) => {
+const Section = ({ section, onPrimaryClick, onSecondaryClick }: { section: SectionData, onPrimaryClick?: (id: string) => void, onSecondaryClick?: (id: string) => void, key?: React.Key }) => {
   const [idea, setIdea] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -443,10 +537,10 @@ const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryC
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative z-10 text-center px-6 pt-12"
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-display font-semibold text-white mb-2 tracking-tight">
           {section.title}
         </h1>
-        <p className="text-sm md:text-base text-white/80 font-medium underline underline-offset-4 decoration-1">
+        <p className="text-sm md:text-base text-white/80 font-tech font-light uppercase tracking-widest underline underline-offset-4 decoration-1">
           {section.subtitle}
         </p>
       </motion.div>
@@ -545,7 +639,10 @@ const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryC
               >
                 {section.primaryBtn}
               </button>
-              <button className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all">
+              <button 
+                onClick={() => onSecondaryClick?.(section.id)}
+                className="flex-1 bg-white/15 backdrop-blur-md text-white border border-white/20 px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-white/25 transition-all"
+              >
                 {section.secondaryBtn}
               </button>
             </motion.div>
@@ -587,7 +684,10 @@ const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryC
             >
               {section.primaryBtn}
             </button>
-            <button className="flex-1 bg-[#171a20]/60 backdrop-blur-md text-white px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-[#171a20]/80 transition-all">
+            <button 
+              onClick={() => onSecondaryClick?.(section.id)}
+              className="flex-1 bg-[#171a20]/60 backdrop-blur-md text-white px-12 py-3 rounded-md font-bold text-sm uppercase tracking-wider hover:bg-[#171a20]/80 transition-all"
+            >
               {section.secondaryBtn}
             </button>
           </motion.div>
@@ -609,21 +709,34 @@ const Section = ({ section, onPrimaryClick }: { section: SectionData, onPrimaryC
 
 export default function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isCoreValuesOpen, setIsCoreValuesOpen] = useState(false);
 
-  const handlePrimaryClick = (id: string) => {
-    if (id === 'mission') {
+  const handlePrimaryClick = (sectionId: string) => {
+    if (sectionId === 'mission') {
       setIsProfileOpen(true);
     }
   };
 
+  const handleSecondaryClick = (sectionId: string) => {
+    if (sectionId === 'mission') {
+      setIsCoreValuesOpen(true);
+    }
+  };
+
   return (
-    <div className="h-screen overflow-hidden" onClick={() => isProfileOpen && setIsProfileOpen(false)}>
+    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen) && (setIsProfileOpen(false), setIsCoreValuesOpen(false))}>
       <Navbar />
       <CompanyProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+      <CoreValuesModal isOpen={isCoreValuesOpen} onClose={() => setIsCoreValuesOpen(false)} />
       
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         {sections.map((section) => (
-          <Section key={section.id} section={section} onPrimaryClick={handlePrimaryClick} />
+          <Section 
+            key={section.id} 
+            section={section} 
+            onPrimaryClick={handlePrimaryClick}
+            onSecondaryClick={handleSecondaryClick}
+          />
         ))}
 
         {/* Footer (Minimalist) */}
