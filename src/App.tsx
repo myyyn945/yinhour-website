@@ -640,12 +640,6 @@ const Navbar = ({ onContactClick, onCloseAll }: {
         >
           联系我们
         </button>
-        <button 
-          className="text-white p-2"
-          onClick={() => setIsMobileMenuOpen(true)}
-        >
-          <Menu size={24} />
-        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -1145,16 +1139,21 @@ export default function App() {
     setNewsType(type);
   };
 
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isLegalOpen, setIsLegalOpen] = useState(false);
+
   const closeModal = () => {
     setIsProfileOpen(false);
     setIsCoreValuesOpen(false);
     setIsDemoModalOpen(false);
     setIsContactModalOpen(false);
     setNewsType(null);
+    setIsPrivacyOpen(false);
+    setIsLegalOpen(false);
   };
 
   return (
-    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen || isDemoModalOpen || isContactModalOpen || newsType) && closeModal()}>
+    <div className="h-screen overflow-hidden" onClick={() => (isProfileOpen || isCoreValuesOpen || isDemoModalOpen || isContactModalOpen || newsType || isPrivacyOpen || isLegalOpen) && closeModal()}>
       <Navbar 
         onContactClick={() => setIsContactModalOpen(true)} 
         onCloseAll={closeModal}
@@ -1164,6 +1163,64 @@ export default function App() {
       <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
       <NewsModal isOpen={!!newsType} type={newsType} onClose={() => setNewsType(null)} />
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
+
+      {/* Privacy Policy Modal */}
+      <AnimatePresence>
+        {isPrivacyOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[400]"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white rounded-2xl p-8 z-[410] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl font-bold mb-4 text-[#171a20]">隐私政策</h3>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                本隐私政策适用于本网站所有访问用户、注册用户及服务使用者，访问、使用本网站即视为同意本政策全部条款。本站严格保护用户个人隐私，仅收集业务必要信息，用于服务对接与网站优化，不会非法泄露、出售用户信息，合理使用 Cookie 提升浏览体验，政策将不定期更新公示。
+              </p>
+              <div className="mt-8 flex justify-end">
+                <button onClick={closeModal} className="px-6 py-2 bg-[#171a20] text-white rounded-full text-sm font-bold">我知道了</button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Legal Notice Modal */}
+      <AnimatePresence>
+        {isLegalOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[400]"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white rounded-2xl p-8 z-[410] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl font-bold mb-4 text-[#171a20]">法律声明</h3>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                本站所有内容版权归本企业所有，未经授权禁止商用转载。网站内容仅供参考，不构成专业建议，因第三方行为或自行使用产生的风险由用户自行承担，本站保留最终解释权。
+              </p>
+              <div className="mt-8 flex justify-end">
+                <button onClick={closeModal} className="px-6 py-2 bg-[#171a20] text-white rounded-full text-sm font-bold">我知道了</button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
       
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth overflow-x-hidden">
         {sections.map((section) => (
@@ -1180,10 +1237,18 @@ export default function App() {
         <footer className="bg-white py-8 flex flex-col items-center gap-4 snap-start">
           <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-[#5c5e62]">
             <p>© 2026 成都寅时智能</p>
-            <a href="#" className="hover:text-black transition-colors">隐私政策</a>
-            <a href="#" className="hover:text-black transition-colors">法律声明</a>
-            <a href="#" className="hover:text-black transition-colors">加入我们</a>
-            <a href="#" className="hover:text-black transition-colors">行业动态</a>
+            <button 
+              onClick={(e) => { e.stopPropagation(); setIsPrivacyOpen(true); }}
+              className="hover:text-black transition-colors"
+            >
+              隐私政策
+            </button>
+            <button 
+              onClick={(e) => { e.stopPropagation(); setIsLegalOpen(true); }}
+              className="hover:text-black transition-colors"
+            >
+              法律声明
+            </button>
             <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">蜀ICP备2026017298号</a>
             <a href="https://beian.mps.gov.cn/#/query/webSearch?code=51019002009363" rel="noreferrer" target="_blank" className="hover:text-black transition-colors flex items-center gap-1">
               <img 
