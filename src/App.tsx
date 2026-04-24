@@ -314,35 +314,54 @@ const DemoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Create mailto link with form data
-    const recipient = 'yangpeng@yinhour.com';
-    const cc = 'wangz@yinhour.com';
-    const subject = encodeURIComponent(`预约产品演示 - ${formData.company} - ${formData.name}`);
-    const body = encodeURIComponent(`
-姓名：${formData.name}
-公司：${formData.company}
-手机：${formData.phone}
-邮箱：${formData.email}
-演示需求：
-${formData.requirements}
-    `.trim());
-    
-    window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch('/api/send-demo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Simulate API call and success state
-    setTimeout(() => {
-      setIsSubmitting(false);
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
         onClose();
         setFormData({ name: '', company: '', phone: '', email: '', requirements: '' });
       }, 2000);
-    }, 1000);
+    } catch (err) {
+      console.error('Error sending demo request:', err);
+      // Fallback to mailto if API fails
+      const recipient = 'yangpeng@yinhour.com';
+      const cc = 'wangz@yinhour.com';
+      const subject = encodeURIComponent(`预约产品演示 - ${formData.company} - ${formData.name}`);
+      const body = encodeURIComponent(`
+姓名：${formData.name}
+公司：${formData.company}
+手机：${formData.phone}
+邮箱：${formData.email}
+演示需求：
+${formData.requirements}
+      `.trim());
+      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+      
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        onClose();
+        setFormData({ name: '', company: '', phone: '', email: '', requirements: '' });
+      }, 2000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -718,20 +737,43 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
   const [idea, setIdea] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (idea.trim()) {
-      // Create mailto link with requirements
-      const recipient = 'yangpeng@yinhour.com';
-      const cc = 'wangz@yinhour.com';
-      const subject = encodeURIComponent('奇思AI想 - 创意提交');
-      const body = encodeURIComponent(idea.trim());
-      
-      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+    if (!idea.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/send-idea', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idea: idea.trim() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
 
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
       setIdea('');
+    } catch (err) {
+      console.error('Error sending idea:', err);
+      // Fallback to mailto
+      const recipient = 'yangpeng@yinhour.com';
+      const cc = 'wangz@yinhour.com';
+      const subject = encodeURIComponent('奇思AI想 - 创意提交');
+      const body = encodeURIComponent(idea.trim());
+      window.location.href = `mailto:${recipient}?cc=${cc}&subject=${subject}&body=${body}`;
+      
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+      setIdea('');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -791,10 +833,15 @@ const Section = ({ section, onPrimaryClick, onSecondaryClick, onNewsClick }: {
                     className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 min-h-[120px] resize-none"
                   />
                   <button 
+                    disabled={isSubmitting}
                     type="submit"
-                    className="w-full bg-white text-[#171a20] py-3 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-white/90 transition-all"
+                    className="w-full bg-white text-[#171a20] py-3 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-white/90 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
                   >
-                    提交创意
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                    ) : (
+                      '提交创意'
+                    )}
                   </button>
                 </motion.form>
               ) : (
